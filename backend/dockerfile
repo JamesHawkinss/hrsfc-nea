@@ -9,8 +9,7 @@ RUN npm ci --only=production
 COPY ./src ./
 
 # set a static port
-ENV PORT=8080
-EXPOSE 8080
+EXPOSE $PORT
 
 # run app
 CMD node index.js
