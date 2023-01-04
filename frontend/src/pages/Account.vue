@@ -1,6 +1,5 @@
 <template>
   <login-wrapper>
-    <Header />
     <h1>Account page</h1>
     <p>yoink: {{user}}</p>
     <hr/>
@@ -12,13 +11,11 @@
 
 <script>
 import LoginWrapper from '../components/auth/LoginWrapper.vue'
-import Header from '../components/partials/Header.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    LoginWrapper,
-    Header
+    LoginWrapper
   },
   data() {
     return {

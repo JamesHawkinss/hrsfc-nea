@@ -1,21 +1,25 @@
 <template>
-  <form onsubmit="return false">
-    <label>
-      username
-      <input v-model="username" />
-    </label>
-    <label>
-      password
-      <input v-model="password" type="password" />
-    </label>
-    <button @click="submit()">login</button>
-    <p v-if="loading">logging in...</p>
-    <p v-if="error">Failed to login</p>
-    <button @click="$router.push('/register')">dont have an account? register instead</button>
-  </form>
+  <Card>
+    <form onsubmit="return false">
+      <p v-if="loading">logging in...</p>
+      <p v-if="error">Failed to login</p>
+      
+      <div class="fields">
+        <text-input v-model="username" :label="'Username'" />
+        <text-input v-model="password" :label="'Password'" />
+        <Button @click="submit()" :type="'primary'">Login</Button>
+        <Button @click="$router.push('/register')" :type="'secondary'">dont have an account? register instead</Button>
+      </div>
+
+    </form>
+  </Card>
 </template>
 
 <script>
+import Button from '../core/Button.vue';
+import Card from '../core/Card.vue'
+import TextInput from '../core/TextInput.vue';
+
 export default {
   data() {
     return {
@@ -25,6 +29,11 @@ export default {
       loading: false,
       error: false,
     };
+  },
+  components: {
+    Card,
+    TextInput,
+    Button
   },
   methods: {
     async submit() {
@@ -67,3 +76,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.fields {
+  width: 50%;
+}
+</style>

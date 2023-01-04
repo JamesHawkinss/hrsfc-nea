@@ -6,6 +6,11 @@
 </template>
 
 <style scoped>
+.textInput {
+  display: flex;
+  flex-direction: column;
+}
+
 input {
   background-color: #2a2c36;
   color: #fff;

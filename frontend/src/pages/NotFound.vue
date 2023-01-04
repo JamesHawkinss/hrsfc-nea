@@ -1,6 +1,6 @@
 <template>
     <Card>
-        <h1>how the fuck did you get here?</h1>
+        <h1>huh?</h1>
         <p>(this is the 404 page btw)</p>
         <Button :type="'secondary'" @click="$router.push('/')">go home</Button>
     </Card>

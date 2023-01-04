@@ -10,5 +10,8 @@ div {
 
     border-radius: 10px;
     
+    padding: 1rem;
+
+    margin: 1rem;
 }
 </style>

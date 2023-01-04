@@ -1,13 +1,13 @@
 mongo --eval "
 db.auth('$MONGO_INITDB_ROOT_USERNAME', '$MONGO_INITDB_ROOT_PASSWORD');
-db = db.getSiblingDB('$MONGO_NEW_DB');
+db = db.getSiblingDB('$MONGO_INITDB_DATABASE');
 db.createUser({
-    user: '$MONGO_NEW_USER',
-    pwd: '$MONGO_NEW_PASS',
+    user: '$MONGO_INITDB_ROOT_USERNAME',
+    pwd: '$MONGO_INITDB_ROOT_PASSWORD',
     roles: [
         {
             role: 'readWrite',
-            db: '$MONGO_NEW_DB'
+            db: '$MONGO_INITDB_DATABASE'
         }
     ]
 });"
