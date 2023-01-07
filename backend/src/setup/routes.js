@@ -2,6 +2,7 @@ const testRouter = require('../routes/test');
 const userRouter = require('../routes/user');
 const authRouter = require('../routes/auth');
 const timetableRouter = require('../routes/timetable');
+const friendRouter = require('../routes/friends');
 
 const express = require("express");
 const apiVersion = "v1";
@@ -14,6 +15,7 @@ module.exports = (app) => {
   router.use('/users', userRouter);
   router.use('/auth', authRouter);
   router.use('/timetable', timetableRouter);
+  router.use('/friends', friendRouter);
 
   app.use(`/api/${apiVersion}`, router);
 
