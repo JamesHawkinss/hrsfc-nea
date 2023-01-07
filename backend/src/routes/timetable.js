@@ -62,9 +62,40 @@ router.post(
     }
 )
 
+router.post(
+    "/@me/import",
+    async (req, res) => {
+        if (!req.body || !req.body.username || !req.body.password) {
+            return res.status(400).json({
+                status: false,
+                error: "missing body"
+            })
+        }
+
+        const { username, password } = req.body;
+
+        const timetable = await fetch(`https://intranet.hrsfc.ac.uk/internal/StudentHome/Timetable`, {
+            headers: {
+                "Authorization": {
+                    
+                }
+            }
+        }).then((r) => r.json());
+
+        console.log(res);
+        // https://intranet.hrsfc.ac.uk/internal/StudentHome/Timetable
+    }
+)
+
 router.get(
     "/:id",
     async (req, res) => {
+        if (!req.user) {
+            return res.status(401).json({
+                status: false,
+            })  
+        }
+    
         const { id } = req.params;
 
         const user = await User.findOne({ studentId: id });
