@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { User } = require('../models/User');
+const { SharedTimetable } = require('../models/SharedTimetable');
 
 router.get(
     "/@me",
@@ -62,31 +63,6 @@ router.post(
     }
 )
 
-router.post(
-    "/@me/import",
-    async (req, res) => {
-        if (!req.body || !req.body.username || !req.body.password) {
-            return res.status(400).json({
-                status: false,
-                error: "missing body"
-            })
-        }
-
-        const { username, password } = req.body;
-
-        const timetable = await fetch(`https://intranet.hrsfc.ac.uk/internal/StudentHome/Timetable`, {
-            headers: {
-                "Authorization": {
-                    
-                }
-            }
-        }).then((r) => r.json());
-
-        console.log(res);
-        // https://intranet.hrsfc.ac.uk/internal/StudentHome/Timetable
-    }
-)
-
 router.get(
     "/:id",
     async (req, res) => {
@@ -97,6 +73,13 @@ router.get(
         }
     
         const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({
+                status: false,
+                error: "missing student id"
+            })
+        }
 
         const user = await User.findOne({ studentId: id });
 
