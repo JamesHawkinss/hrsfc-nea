@@ -13,7 +13,10 @@ router.get(
 
         return res.json({
             status: true,
-            data: { ...req.user.toObject() }
+            data: {
+                ...req.user.toObject(),
+                password: undefined,
+            }
         })
     }
 );
@@ -41,16 +44,19 @@ router.get(
 
         const user = await User.findOne({ studentId: id });
 
-        if (!user || !user.timetable) {
+        if (!user) {
             return res.status(404).json({
                 status: false,
-                error: `user ${!user ? "does not exist" : "does not have timetable"}`
+                error: `user does not exist`
             })
         }
 
         return res.json({
             status: true,
-            data: { ...user.timetable.toObject() }
+            data: {
+                ...user.toObject(),
+                password: undefined,
+            }
         })
     }
 );
