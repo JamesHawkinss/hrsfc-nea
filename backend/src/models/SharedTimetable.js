@@ -5,7 +5,7 @@ const SharedTimetableSchema = new mongoose.Schema({
     participants: [String], // array of studentIds
 });
 
-const SharedTimetable = mongoose.model('user', SharedTimetableSchema);
+const SharedTimetable = mongoose.model('sharedTimetable', SharedTimetableSchema);
 
 module.exports = {
     SharedTimetableSchema,
