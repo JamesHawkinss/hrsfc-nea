@@ -5,8 +5,8 @@
       <p v-if="error">Failed to login</p>
       
       <div class="fields">
-        <text-input v-model="username" :label="'Username'" />
-        <text-input v-model="password" :label="'Password'" />
+        <TextInput v-model="username" :label="'Username'" />
+        <TextInput v-model="password" type="password" :label="'Password'" />
         <Button @click="submit()" :type="'primary'">Login</Button>
         <Button @click="$router.push('/register')" :type="'secondary'">dont have an account? register instead</Button>
       </div>

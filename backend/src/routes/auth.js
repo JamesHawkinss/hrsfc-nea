@@ -6,6 +6,9 @@ const bcrypt = require('bcrypt')
 const config = require('../config');
 
 async function registerUser({ username, password, studentId }) {
+  if (!username || !password || !studentId)
+    return "missingFields"
+    
   if (typeof username !== 'string')
     return "invalidUsername"
 

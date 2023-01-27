@@ -94,7 +94,7 @@ router.post(
 
         await User.findOneAndUpdate(
             { studentId: id },
-            { friendRequests: [...user.friendRequests, req.user.studentId] }
+            { $push: { friendRequests: req.user.studentId } }
         );
 
         return res.status(200).json({ status: true});
@@ -104,8 +104,53 @@ router.post(
 router.post(
     "/accept/:id",
     async (req, res) => {
+        if (!req.user) {
+            return res.status(401).json({
+                status: false,
+            })  
+        }
+
+        const { id } = req.params;
+        
+        if (!id) {
+            return res.status(400).json({
+                status: false,
+                error: "missing student id"
+            })
+        }
+
+        // we could get the data from req.user but
+        // we want to get the latest data from the database
+        const self = await User.findById(req.user._id);
+
+        if (!self.friendRequests.includes(id)) {
+            return res.status(400).json({
+                status: false,
+                error: "no such friend request"
+            })
+        }
+
+        const newFriendRequests = self.friendRequests.filter((studentId) => studentId !== id);
+
+        // update self user
+        await User.findOneAndUpdate(
+            { studentId: self.studentId },
+            {
+                friendRequests: newFriendRequests,
+                $push: { friends: id }
+            }
+        );
+
+        // update remote user
+        await User.findOneAndUpdate(
+            { studentId: id },
+            { $push: { friends: self.id } }
+        );
+
 
     }
 );
+
+// TODO remove friend
 
 module.exports = router;

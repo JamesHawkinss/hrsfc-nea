@@ -27,6 +27,8 @@ router.get("/:id", async (req, res) => {
 		});
 	}
 
+	// TODO construct timetable from sharedTimetable
+
 	return res.json({
 		status: true,
 		data: { ...sharedTimetable.toObject() },

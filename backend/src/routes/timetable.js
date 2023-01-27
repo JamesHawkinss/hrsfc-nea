@@ -83,6 +83,13 @@ router.get(
 
         const user = await User.findOne({ studentId: id });
 
+        if (!user.friends.includes(req.user.studentId)) {
+            return res.status(403).json({
+                status: false,
+                error: "user is not your friend"
+            })
+        }
+
         if (!user || !user.timetable) {
             return res.status(404).json({
                 status: false,

@@ -1,7 +1,7 @@
 <template>
   <div class='textInput'>
     <label>{{label}}</label>
-    <input v-bind:placeholder="placeholder" v-bind:type="type" />
+    <input @input="handleInput" v-bind:placeholder="placeholder" v-bind:type="type" />
   </div>
 </template>
 
@@ -50,12 +50,25 @@ export default {
     placeholder: {
       type: String,
       default: "",
-      required: true,
     },
     label: {
       type: String,
       default: ""
+    },
+    value: {
+      type: String,
+      default: ""
     }
   },
+  data() {
+    return {
+      content: this.value
+    }
+  },
+  methods: {
+    handleInput() {
+      this.$emit('input', this.content)
+    }
+  }
 };
 </script>
