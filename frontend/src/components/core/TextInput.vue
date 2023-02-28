@@ -1,9 +1,37 @@
 <template>
-  <div class='textInput'>
-    <label>{{label}}</label>
-    <input @input="handleInput" v-bind:placeholder="placeholder" v-bind:type="type" />
+  <div class="textInput">
+    <label>{{ label }}</label>
+    <input
+      :value="modelValue"  
+      @input="$emit('update:modelValue', $event.target.value)"
+      v-bind:placeholder="placeholder"
+      v-bind:type="type"
+    />
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    type: {
+      type: String,
+      default: "text",
+    },
+    placeholder: {
+      type: String,
+      default: "",
+    },
+    label: {
+      type: String,
+      default: "",
+    },
+    modelValue: {
+      type: String,
+    },
+  },
+  emits: ['update:modelValue']
+};
+</script>
 
 <style scoped>
 .textInput {
@@ -39,36 +67,3 @@ label {
   margin-bottom: 1rem;
 }
 </style>
-
-<script>
-export default {
-  props: {
-    type: {
-      type: String,
-      default: "text"
-    },
-    placeholder: {
-      type: String,
-      default: "",
-    },
-    label: {
-      type: String,
-      default: ""
-    },
-    value: {
-      type: String,
-      default: ""
-    }
-  },
-  data() {
-    return {
-      content: this.value
-    }
-  },
-  methods: {
-    handleInput() {
-      this.$emit('input', this.content)
-    }
-  }
-};
-</script>

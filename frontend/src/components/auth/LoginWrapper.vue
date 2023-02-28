@@ -15,12 +15,12 @@ import AuthLoading from '../AuthLoading'
 import { mapGetters } from 'vuex'
 
 export default {
-    props: {
-        hideLogin: {
-            type: Boolean,
-            default: false,
-        }
-    },
+	props: {
+		hideLogin: {
+				type: Boolean,
+				default: false,
+		}
+	},
   components: {
     AuthLoading,
   },

@@ -5,7 +5,7 @@
       <p v-if="error">Failed to register</p>
 
       <div class="fields">
-        <TextInput :value="username" :label="'Username'" />
+        <TextInput v-model="username" :label="'Username'" />
         <TextInput v-model="studentId" :label="'Student ID'" />
         <TextInput v-model="password" type="password" :label="'Password'" />
         <TextInput

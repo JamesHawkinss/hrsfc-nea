@@ -2,7 +2,8 @@
     <div class='header'>
         <router-link class='header-title' to='/'>Hills Timetables</router-link>
         <router-link class='header-link' to='/account'>My Account</router-link>
-        <router-link class='header-link' to='/account'>My Account</router-link>
+        <router-link class='header-link' to='/timetable'>My Timetable</router-link>
+        <router-link class='header-link' to='/shared'>Shared Timetables</router-link>
     </div>
 </template>
 

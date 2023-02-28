@@ -2,12 +2,13 @@
   <Card>
     <form onsubmit="return false">
       <p v-if="loading">logging in...</p>
-      <p v-if="error">Failed to login</p>
+      <p v-if="error.status">failed to login: {{ error.message }}</p>
       
       <div class="fields">
         <TextInput v-model="username" :label="'Username'" />
         <TextInput v-model="password" type="password" :label="'Password'" />
-        <Button @click="submit()" :type="'primary'">Login</Button>
+
+        <Button @click="submit()" :type="'primary'">login</Button>
         <Button @click="$router.push('/register')" :type="'secondary'">dont have an account? register instead</Button>
       </div>
 
@@ -27,7 +28,10 @@ export default {
       password: "",
 
       loading: false,
-      error: false,
+      error: {
+        status: false,
+        message: ""
+      },
     };
   },
   components: {
@@ -40,7 +44,7 @@ export default {
       if (this.loading) return;
 
       this.loading = true;
-      this.error = false;
+      this.error.status = false;
 
       try {
         const res = await fetch(`${window._env_.FRONTEND_API_URL}/api/v1/auth/login`, {
@@ -63,12 +67,13 @@ export default {
         this.$router.push('/');
 
         this.loading = false;
-        this.error = false;
+        this.error.status = false;
       } catch (err) {
         console.error("failed to login", err);
 
         this.loading = false;
-        this.error = true;
+        this.error.status = true;
+        this.error.message = err.message;
 
         return;
       }
