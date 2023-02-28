@@ -1,11 +1,18 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { createAuthStore } from './store/auth'
 
 import './assets/main.css'
 
-const app = createApp(App)
+window._env_ = {
+    FRONTEND_API_URL: "http://localhost"
+}
 
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+const authStore = createAuthStore();
+app.use(authStore);
+
+app.use(router);
+app.mount('#app');
