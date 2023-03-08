@@ -10,6 +10,8 @@
             <input v-model="confirmPassword" type="password" />
 
             <button @click="submit()">Register</button>
+            <button @click="$router.push('/login')">Login instead</button>
+
         </div>
     </form>
 </template>
@@ -23,7 +25,7 @@ export default {
 
             username: '',
             password: '',
-            confirmPassowrd: '',
+            confirmPassword: '',
             studentId: ''
         }
     },
