@@ -3,6 +3,7 @@ const router = express.Router();
 const { SharedTimetable } = require("../models/SharedTimetable");
 
 router.get("/:id", async (req, res) => {
+	// If the user isn't authenticated, return
 	if (!req.user) {
 		return res.status(401).json({
 			status: false,
@@ -18,8 +19,10 @@ router.get("/:id", async (req, res) => {
 		});
 	}
 
+	// Get the shared timetable from the database
 	const sharedTimetable = await SharedTimetable.findById(id);
 
+	// If that shared timetable doesn't exist, return
 	if (!sharedTimetable) {
 		return res.status(404).json({
 			status: false,
@@ -36,12 +39,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/create", async (req, res) => {
+	// If the user isn't authenticated, return
 	if (!req.user) {
 		return res.status(401).json({
 			status: false,
 		});
 	}
 
+	// Abstract name from request body
 	const { name } = req.body;
 
 	if (!name) {
@@ -51,11 +56,13 @@ router.post("/create", async (req, res) => {
 		});
 	}
 
+	// Create a new shared object document, including the requesting user
 	const sharedTimetable = new SharedTimetable({
 		name,
 		participants: [req.user.studentId],
 	});
 
+	// Save the new shared timetable to the database
 	try {
 		await sharedTimetable.save();
 	} catch (err) {
@@ -65,6 +72,7 @@ router.post("/create", async (req, res) => {
         });
 	}
 
+	// On success, return the new shared timetable object
 	return res.json({
 		status: true,
 		data: { ...sharedTimetable.toObject() },
@@ -74,12 +82,14 @@ router.post("/create", async (req, res) => {
 router.post(
     '/join/:id',
     async (req, res) => {
+		// If the user isn't authenticated, return
         if (!req.user) {
             return res.status(401).json({
                 status: false,
             });
         }
     
+		// Abstract the shared timetable ID from request params
         const { id } = req.params;
     
         if (!id) {
@@ -89,8 +99,10 @@ router.post(
             });
         }
 
+		// Get the shared timetable from the database
         const sharedTimetable = await SharedTimetable.findById(id);
 
+		// If the shared timetable doesn't exist, return
         if (!sharedTimetable) {
             return res.status(404).json({
                 status: false,
@@ -98,6 +110,7 @@ router.post(
             });
         }
 
+		// If the user is a participant, return
         if (sharedTimetable.participants.includes(req.user.studentId)) {
             return res.status(200).json({
                 status: true,
@@ -105,8 +118,10 @@ router.post(
             });
         }
 
+		// Add the user as a participant
         sharedTimetable.participants.push(req.user.studentId);
 
+		// Update the shared timetable in the database
         try {
             await sharedTimetable.save();
         } catch (err) {
@@ -116,6 +131,7 @@ router.post(
             });
         }
     
+		// Return the new shared timetable object
         return res.json({
             status: true,
             data: { ...sharedTimetable.toObject() },

@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
-const SharedTimetableSchema = new mongoose.Schema({
+// Define a new schema
+const sharedTimetableSchema = new mongoose.Schema({
     name: String,
     participants: [String], // array of studentIds
 });
 
-const SharedTimetable = mongoose.model('sharedTimetable', SharedTimetableSchema);
+// Create a model from the schema, which will be used to create documents
+const SharedTimetable = mongoose.model('sharedTimetable', sharedTimetableSchema);
 
 module.exports = {
-    SharedTimetableSchema,
+    sharedTimetableSchema,
     SharedTimetable
 };

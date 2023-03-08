@@ -9,33 +9,37 @@ const loginStrategy = new LocalStrategy({
   },
   async (req, username, pass, done) => {
     try {
+      // Get matching user from database
       username = username.trim().toLowerCase();
-      // get user
       const user = await User.findOne({ username });
+      
+      // Fail if one doesn't exist
       if (!user) {
         return done(null, false);
       }
 
-      // check password
+      // Does password match database?
       const isCorrectPass = await bcrypt.compare(pass, user.password);
+      // Fail if incorrect password
       if (!isCorrectPass) {
         return done(null, false);
       }
 
-      // return user
+      // Return user object
       return done(null, user);
     } catch (err) {
+      // Fail on error
       return done(err);
     }
   }
 );
 
-// serialize user into user id
+// Serialize user into user id
 function loginSerialize(user, done) {
   return done(null, user._id.toString());
 }
 
-// deserialize by fetching user
+// Deserialize by fetching user from database
 async function loginDeserialize(id, done) {
   try {
     const user = await User.findById(id);

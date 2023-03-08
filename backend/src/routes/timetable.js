@@ -6,6 +6,7 @@ const { SharedTimetable } = require('../models/SharedTimetable');
 router.get(
     "/@me",
     (req, res) => {
+        // If the user isn't authenticated, return
         if (!req.user) {
             return res.status(401).json({
                 status: false,
@@ -13,6 +14,7 @@ router.get(
             })  
         }
 
+        // If the user does not have a timetable, return
         if (!req.user.timetable) {
             return res.status(404).json({
                 status: false,
@@ -20,6 +22,7 @@ router.get(
             })
         }
 
+        // Return the timetable object
         return res.json({
             status: true,
             data: { ...req.user.timetable.toObject() }
@@ -30,12 +33,14 @@ router.get(
 router.post(
     "/@me",
     async (req, res) => {
+        // If the user isn't authenticated, return
         if (!req.user) {
             return res.status(401).json({
                 status: false,
             })  
         }
 
+        // Construct the timetable from the request body
         const newTimetable = {
             1: req.body[1],
             2: req.body[2],
@@ -44,8 +49,10 @@ router.post(
             5: req.body[5],
         }
 
+        // Assign the timetable to the user object
         req.user.timetable = newTimetable;
 
+        // Update the database to save the new timetable
         try {
             await req.user.save();
         } catch (err) {
@@ -56,6 +63,7 @@ router.post(
             })
         }
 
+        // Return the new timetable object
         return res.json({
             status: true,
             data: { ...req.user.timetable.toObject() }
@@ -66,6 +74,7 @@ router.post(
 router.get(
     "/:id",
     async (req, res) => {
+        // If the user isn't authenticated, return
         if (!req.user) {
             return res.status(401).json({
                 status: false,
@@ -81,8 +90,10 @@ router.get(
             })
         }
 
+        // Get the user from the database
         const user = await User.findOne({ studentId: id });
 
+        // If the two users aren't friends, they may not view the timetable
         if (!user.friends.includes(req.user.studentId)) {
             return res.status(403).json({
                 status: false,
@@ -90,6 +101,7 @@ router.get(
             })
         }
 
+        // If the user or timetable doesn't exist, return
         if (!user || !user.timetable) {
             return res.status(404).json({
                 status: false,
@@ -97,6 +109,7 @@ router.get(
             })
         }
 
+        // Return the requested timetable
         return res.json({
             status: true,
             data: { ...user.timetable.toObject() }

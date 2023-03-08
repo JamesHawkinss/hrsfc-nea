@@ -16,6 +16,7 @@ const TimetableSchema = new mongoose.Schema({
 	5: DaySchema, // Friday
 });
 
+// Create a new user schema, which implements the two schemas above
 const UserSchema = new mongoose.Schema({
 	username: {
 		type: String,
@@ -36,6 +37,7 @@ const UserSchema = new mongoose.Schema({
 	friendRequests: [String], // array of studentIds
 });
 
+// Create a new model from the user schema
 const User = mongoose.model('user', UserSchema);
 
 module.exports = {
