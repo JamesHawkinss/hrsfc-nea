@@ -1,49 +1,50 @@
 <template>
-<div></div>
+    <LoginWrapper />
 </template>
 
 <script>
+import LoginWrapper from '../components/auth/LoginWrapper.vue';
+
 export default {
     data() {
         return {
-                logoutState: {
+            logoutState: {
                 loading: false,
                 error: false
             }
-        }
+        };
+    },
+    mounted() {
+        this.logout();
     },
     methods: {
         async logout() {
-            if (this.logoutState.loading) return
-
-            this.logoutState.loading = true
-            this.logoutState.error = false
-
+            if (this.logoutState.loading)
+                return;
+            this.logoutState.loading = true;
+            this.logoutState.error = false;
             try {
                 const res = await fetch(`${window._env_.FRONTEND_API_URL}/api/v1/auth/logout`, {
-                    method: 'POST',
-                    credentials: 'include'
-                })
-
-                const data = await res.json()
+                    method: "POST",
+                    credentials: "include"
+                });
+                const data = await res.json();
                 if (!data.status) {
-                    throw new Error('failed to logout')
+                    throw new Error("failed to logout");
                 }
-
-                this.$store.commit('removeUser')
-                this.$router.push('/')
-
-                this.logoutState.loading = false
-                this.logoutState.error = false
-            } catch (err) {
-                console.error('failed to logout', err)
-
-                this.logoutState.loading = false
-                this.logoutState.error = true
-
-                return
+                this.$store.commit("removeUser");
+                this.$router.push("/");
+                this.logoutState.loading = false;
+                this.logoutState.error = false;
+            }
+            catch (err) {
+                console.error("failed to logout", err);
+                this.logoutState.loading = false;
+                this.logoutState.error = true;
+                return;
             }
         }
-    }
+    },
+    components: { LoginWrapper }
 }
 </script>

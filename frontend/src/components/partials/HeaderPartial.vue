@@ -11,6 +11,8 @@
     </div>
 </template>
 
+<script></script>
+
 <style scoped>
     .header {
         background-color: #1a1c24;

@@ -2,8 +2,10 @@
     <PageCard>
         <h1>Register</h1>
         <form onsubmit="return false">
-            <p v-if="loading">registering...</p>
-            <p v-if="error">Failed to register</p>
+            <div v-if="loading || error" class="notice">
+                <p v-if="loading">Registering...</p>
+                <p v-if="error">Failed to register</p>
+            </div>
     
             <div class="fields">
                 <label>Username</label>
@@ -95,6 +97,13 @@ form {
 
 h1 {
     padding-bottom: 1rem;
+}
+
+.notice {
+    border: 3px solid lightcoral;
+    border-radius: 10px;
+    padding: .5rem;
+
 }
 
 .fields {
