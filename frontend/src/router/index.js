@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/LoginView.vue';
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue';
+import LogoutView from '@/views/LogoutView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import AccountView from '@/views/AccountView.vue';
+import TimetableView from '@/views/TimetableView.vue';
 import NotFound from '@/views/NotFound.vue';
 
 const router = createRouter({
@@ -21,7 +23,7 @@ const router = createRouter({
     {
       path: '/logout',
       name: 'logout',
-      
+      component: LogoutView,
     },
     {
       path: '/register',
@@ -32,6 +34,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: AccountView
+    },
+    {
+      path: '/timetable',
+      name: 'timetable',
+      component: TimetableView
     },
     {
       path: '/:pathMatch(.*)*',

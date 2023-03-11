@@ -13,11 +13,11 @@ import LoginForm from '../components/auth/LoginForm.vue';
 import PageCard from '../components/core/PageCard.vue';
 
 export default {
-    watch: {
-        isLoggedIn(v) {
-            if (v) this.$router.push('/');
-        }
-    },
+    // watch: {
+    //     isLoggedIn(v) {
+    //         if (v) this.$router.push('/');
+    //     }
+    // },
     components: { LoginWrapper, LoginForm, PageCard }
 }
 </script>

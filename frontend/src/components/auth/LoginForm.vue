@@ -57,7 +57,7 @@ export default {
                     throw new Error("failed to login");
                 }
 
-                this.$router.push("/");
+                this.$router.push("/account");
                 this.loading = false;
             }
             catch (e) {
