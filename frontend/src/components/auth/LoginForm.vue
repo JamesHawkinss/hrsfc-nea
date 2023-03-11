@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
     data() {
         return {
@@ -42,19 +41,18 @@ export default {
 
             try {
                 const res = await fetch(`${window._env_.FRONTEND_API_URL}/api/v1/auth/login`, {
-                    method: "POST",
+                    method: 'POST',
                     body: JSON.stringify({
                         username: this.username.trim(),
                         password: this.password.trim()
                     }),
-                    credentials: "include",
+                    credentials: 'include',
                     headers: {
                         "Content-Type": "application/json"
                     }
                 });
 
                 const data = await res.json();
-                console.log(data);
                 if (!data.status) {
                     throw new Error("failed to login");
                 }

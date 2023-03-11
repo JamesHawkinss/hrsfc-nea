@@ -1,6 +1,6 @@
 import Vuex from "vuex";
 
-export function createStore() {
+export function createAuthStore() {
     return new Vuex.Store({
         state: {
             user: null,
@@ -39,6 +39,8 @@ export function createStore() {
         actions: {
             async loadUser({ commit }) {
                 commit("setUser", { error: false, loading: true, data: null });
+                console.log("loading user");
+
                 try {
                     const res = await fetch(`${window._env_.FRONTEND_API_URL}/api/v1/users/@me`, {
                         method: "GET",
