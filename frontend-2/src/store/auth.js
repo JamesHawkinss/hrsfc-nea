@@ -39,6 +39,7 @@ export function createAuthStore() {
         actions: {
             async loadUser({ commit }) {
                 commit("setUser", { error: false, loading: true, data: null });
+                console.log("loading user");
 
                 try {
                     const res = await fetch(`${window._env_.FRONTEND_API_URL}/api/v1/users/@me`, {

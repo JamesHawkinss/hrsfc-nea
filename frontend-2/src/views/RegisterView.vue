@@ -1,23 +1,39 @@
 <template>
-    <form onsubmit="return false">
-        <p v-if="loading">registering...</p>
-        <p v-if="error">Failed to register</p>
+    <PageCard>
+        <h1>Register</h1>
+        <form onsubmit="return false">
+            <p v-if="loading">registering...</p>
+            <p v-if="error">Failed to register</p>
+    
+            <div class="fields">
+                <label>Username</label>
+                <input v-model="username" />
 
-        <div class="fields">
-            <input v-model="username" />
-            <input v-model="studentId" />
-            <input v-model="password" type="password" />
-            <input v-model="confirmPassword" type="password" />
+                <label>Student ID</label>
+                <input v-model="studentId" />
 
-            <button @click="submit()">Register</button>
-            <button @click="$router.push('/login')">Login instead</button>
+                <label>Password</label>
+                <input v-model="password" type="password" />
 
-        </div>
-    </form>
+                <label>Confirm Password</label>
+                <input v-model="confirmPassword" type="password" />
+            </div>
+
+            <div class="buttons">
+                <button @click="submit()">Register</button>
+                <button @click="$router.push('/login')">Login instead</button>
+            </div>
+        </form>
+    </PageCard>
 </template>
 
 <script>
+import PageCard from '../components/core/PageCard.vue'
+
 export default {
+    components: {
+        PageCard
+    },
     data() {
         return {
             loading: false,
@@ -68,3 +84,35 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+form {
+    display: flex;
+    flex-direction: column;
+
+    width: 400px;
+}
+
+h1 {
+    padding-bottom: 1rem;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+
+    padding-bottom: 1rem;
+}
+
+button {
+    text-align: center;
+    width: 10rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
+</style>

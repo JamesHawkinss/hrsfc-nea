@@ -3,15 +3,16 @@
         <p v-if="loading">Logging in...</p>
         <p v-if="error.status">Failed to login: {{ error.message }}</p>
 
-        <div>
+        <div class="fields">
             <label for="username">Username</label>
             <input v-model="username" />
 
             <label for="password">Password</label>
             <input v-model="password" type="password" />
+        </div>
 
+        <div class="buttons">
             <button @click="submit()">Login</button>
-
             <button @click="$router.push('/register')">Register</button>
         </div>
     </form>
