@@ -103,7 +103,6 @@ h1 {
     border: 3px solid lightcoral;
     border-radius: 10px;
     padding: .5rem;
-
 }
 
 .fields {

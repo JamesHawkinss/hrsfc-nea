@@ -23,6 +23,9 @@ export function createAuthStore() {
             user(state) {
                 return state.user;
             },
+            loadState(state) {
+                return state.loadState;
+            }
         },
         mutations: {
             setUser(state, { error, loading, loggedIn, data }) { 
