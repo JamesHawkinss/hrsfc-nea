@@ -1,9 +1,9 @@
 <template>
     <PageCard>
-        <div v-if="loadState.loading">
+        <div v-if="$store.state.loadState.loading">
             <h1>Loading session...</h1>
         </div>
-        <div v-else-if="loadState.errored">
+        <div v-else-if="$store.state.loadState.errored">
             <h1>Failed to load</h1>
             <button @click="$store.dispatch('loadUser')">Retry</button>
         </div>
@@ -12,12 +12,18 @@
 
 <script>
 import PageCard from '../core/PageCard.vue'
-import { mapGetters } from 'vuex'
 
 export default {
     components: {
         PageCard,
-        ...mapGetters['loadState']
     }
 }
 </script>
+
+<style scoped>
+div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+</style>

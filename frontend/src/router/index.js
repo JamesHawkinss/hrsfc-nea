@@ -5,6 +5,7 @@ import LogoutView from '@/views/LogoutView.vue';
 import RegisterView from '@/views/RegisterView.vue';
 import AccountView from '@/views/AccountView.vue';
 import TimetableView from '@/views/TimetableView.vue';
+import UserView from '@/views/UserView.vue';
 import NotFound from '@/views/NotFound.vue';
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/timetable',
       name: 'timetable',
       component: TimetableView
+    },
+    {
+      path: '/user/:id',
+      name: 'user',
+      component: UserView
     },
     {
       path: '/:pathMatch(.*)*',

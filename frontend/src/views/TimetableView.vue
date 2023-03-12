@@ -1,7 +1,7 @@
 <template>
     <LoginWrapper>
         <PageCard>
-            <h1>Timetable</h1>
+            <h1>Your Timetable</h1>
             <p v-if="loading">Loading timetable...</p>
             <p v-if="error">Failed to load timetable...</p>
 

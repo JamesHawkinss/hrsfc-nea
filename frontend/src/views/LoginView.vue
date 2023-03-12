@@ -1,7 +1,7 @@
 <template>
     <PageCard>
-        <h1>Login</h1>
         <LoginWrapper hideLogin>
+            <h1>Login</h1>
             <LoginForm />
         </LoginWrapper>
     </PageCard>
